@@ -25,7 +25,7 @@ const Gallery: React.FC<GalleryProps> = ({ auto = false, interval = 3500 }) => {
   }, [auto, interval])
 
   return (
-    <section data-reveal="right" data-delay="120" className="block-section w-full">
+    <section id="gallery" data-reveal="right" data-delay="120" className="block-section w-full">
       <div className="block-content flex flex-col items-center w-full">
         <h3 className="text-2xl md:text-3xl font-heading mb-4">Gallery</h3>
         <Card className="w-full flex-1 flex flex-col items-center p-0 overflow-hidden shadow-soft card">

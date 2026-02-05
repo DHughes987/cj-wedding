@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
 const RSVP: React.FC = () => (
-  <section data-reveal="right" data-delay="200" className="block-section">
+  <section id="rsvp" data-reveal="right" data-delay="200" className="block-section">
     <div className="block-content">
       <h3 className="text-2xl md:text-3xl font-heading mb-4">RSVP</h3>
       <p className="lead mb-6">Please let us know if you can join us.</p>

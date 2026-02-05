@@ -75,6 +75,11 @@ body {
   transition: background 0.5s, color 0.5s;
 }
 
+/* smooth in-page anchor scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
 .card {
   background: var(--card);
   color: var(--card-foreground);
