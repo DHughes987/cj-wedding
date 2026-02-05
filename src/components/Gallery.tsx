@@ -1,15 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 
-const Gallery: React.FC = () => (
-  <section className="py-8 flex flex-wrap justify-center gap-4">
-    {/* Replace with actual images */}
-    {[1,2,3].map((img) => (
-      <Card key={img} className="w-64 h-40 flex items-center justify-center bg-muted">
-        <span className="text-muted-foreground">Photo {img}</span>
-      </Card>
-    ))}
-  </section>
-);
+const images = [
+  "https://placehold.co/600x400?text=Caroline+%26+Johnathon+1",
+  "https://placehold.co/600x400?text=Caroline+%26+Johnathon+2",
+  "https://placehold.co/600x400?text=Caroline+%26+Johnathon+3",
+];
+
+const Gallery: React.FC = () => {
+  const [current, setCurrent] = useState(0);
+  const prev = () => setCurrent((current - 1 + images.length) % images.length);
+  const next = () => setCurrent((current + 1) % images.length);
+
+  return (
+    <section data-reveal="right" data-delay="120" className="block-section">
+      <div className="block-content flex flex-col items-center">
+        <h3 className="text-2xl md:text-3xl font-heading mb-4">Gallery</h3>
+        <Card className="w-full max-w-4xl flex flex-col items-center p-0 overflow-hidden shadow-soft card">
+          <div className="relative w-full h-96 flex items-center justify-center">
+          <img
+            src={images[current]}
+            alt={`Wedding ${current + 1}`}
+            className="object-cover w-full h-full rounded-xl transition-all duration-500"
+          />
+          <button
+            onClick={prev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-blush text-navy rounded-full px-3 py-2 shadow-gold hover:bg-gold transition"
+            aria-label="Previous"
+          >&#8592;</button>
+          <button
+            onClick={next}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-blush text-navy rounded-full px-3 py-2 shadow-gold hover:bg-gold transition"
+            aria-label="Next"
+          >&#8594;</button>
+          </div>
+          <div className="flex justify-center gap-2 py-4">
+          {images.map((_, idx) => (
+            <span
+              key={idx}
+              className={`inline-block w-3 h-3 rounded-full ${idx === current ? 'bg-gold' : 'bg-muted'} transition`}
+            />
+          ))}
+          </div>
+        </Card>
+      </div>
+    </section>
+  );
+};
 
 export default Gallery;

@@ -44,39 +44,60 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --radius: 1.5rem;
+  --background: linear-gradient(135deg, #F9E5E1 0%, #FFF8F0 100%);
+  --foreground: #2D3142;
+  --card: #FFF8F0;
+  --card-foreground: #2D3142;
+  --primary: #E6CBA8;
+  --primary-foreground: #2D3142;
+  --secondary: #A7C7E7;
+  --secondary-foreground: #2D3142;
+  --muted: #F9E5E1;
+  --muted-foreground: #2D3142;
+  --accent: #A7C7E7;
+  --accent-foreground: #2D3142;
+  --border: #E6CBA8;
+  --input: #E6CBA8;
+  --ring: #A7C7E7;
+}
+
+body {
+  font-family: 'Inter', 'Playfair Display', serif;
+  background: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  transition: background 0.5s, color 0.5s;
+}
+
+.card {
+  background: var(--card);
+  color: var(--card-foreground);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 24px 0 rgba(230, 203, 168, 0.15);
+  padding: 2rem;
+  margin: 1.5rem 0;
+  transition: box-shadow 0.3s;
+}
+
+.section {
+  padding: 3rem 0;
+  border-radius: var(--radius);
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #2D3142;
+}
+
+.divider {
+  height: 2px;
+  background: linear-gradient(90deg, #E6CBA8 0%, #A7C7E7 100%);
+  border-radius: 1px;
+  margin: 2rem 0;
 }
 
 .dark {
@@ -121,3 +142,98 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* --- Hero uplift + reveal animations --- */
+.hero-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13,18,25,0.18) 0%, rgba(13,18,25,0.28) 60%, rgba(13,18,25,0.55) 100%);
+  z-index: 5;
+}
+
+.hero-title {
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+/* Reveal animation base state */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 650ms cubic-bezier(.2,.9,.2,1), transform 650ms cubic-bezier(.2,.9,.2,1);
+  will-change: opacity, transform;
+}
+
+[data-reveal="left"] {
+  transform: translateX(-40px);
+}
+
+[data-reveal="right"] {
+  transform: translateX(40px);
+}
+
+[data-reveal].revealed {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+/* Smaller utility for stagger using data-delay attribute (ms)
+   For simple cases we read dataset.delay in JS. */
+
+.big-hero-shadow {
+  text-shadow: 0 8px 30px rgba(13,18,25,0.35);
+}
+
+/* Large block-section (hero-like) for major page sections */
+.block-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 4rem 1rem;
+  margin: 2rem 0;
+  overflow: hidden;
+}
+
+.block-section::before {
+  /* subtle vignette to lift text */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(13,18,25,0.02));
+  pointer-events: none;
+}
+
+.block-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1100px;
+  padding: 3rem;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.72));
+  box-shadow: 0 10px 40px rgba(45,49,66,0.08);
+  backdrop-filter: blur(6px) saturate(120%);
+}
+
+.block-section h3,
+.block-section h2 {
+  font-size: clamp(1.6rem, 3.8vw, 2.8rem);
+  line-height: 1.03;
+  margin-bottom: 0.5rem;
+}
+
+.block-section p,
+.block-section .lead {
+  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  color: var(--foreground);
+}
+
+.block-section .card {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+
