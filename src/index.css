@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Sora:wght@300;400;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -66,7 +67,8 @@
 }
 
 body {
-  font-family: 'Inter', 'Playfair Display', serif;
+  /* modern sans for UI with elegant serif for headings */
+  font-family: 'Sora', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: var(--background);
   color: var(--foreground);
   min-height: 100vh;
@@ -91,7 +93,8 @@ body {
 h1, h2, h3 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
-  color: #2D3142;
+  color: var(--foreground);
+  letter-spacing: -0.01em;
 }
 
 .divider {
@@ -156,6 +159,11 @@ h1, h2, h3 {
 .hero-title {
   letter-spacing: -0.02em;
   text-transform: none;
+}
+
+.hero-title {
+  font-weight: 900;
+  line-height: 0.96;
 }
 
 /* Hero polish for Awwwards-like depth */
