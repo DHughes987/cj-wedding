@@ -5,6 +5,7 @@ import "./index.css"
 import App from "./App.tsx"
 import { initRevealOnScroll } from "./lib/reveal"
 import { initParallax } from "./lib/scroll"
+import { initStars } from "./lib/stars"
 
 // debug: ensure main module runs
 try { console.log && console.log('[main] entry') } catch (e) {}
@@ -20,6 +21,8 @@ if (typeof window !== 'undefined') {
   // small timeout to ensure SSR hydration is complete (if any)
   window.requestAnimationFrame(() => {
     try { console.log && console.log('[main] rAF init') } catch (e) {}
+    // create stars first so parallax can observe them
+    try { initStars(document, 160) } catch (e) {}
     initRevealOnScroll(document)
     initParallax(document)
   })

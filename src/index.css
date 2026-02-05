@@ -47,21 +47,22 @@
 
 :root {
   --radius: 1.5rem;
-  --background: linear-gradient(135deg, #F9E5E1 0%, #FFF8F0 100%);
-  --foreground: #2D3142;
-  --card: #FFF8F0;
-  --card-foreground: #2D3142;
-  --primary: #E6CBA8;
-  --primary-foreground: #2D3142;
-  --secondary: #A7C7E7;
-  --secondary-foreground: #2D3142;
-  --muted: #F9E5E1;
-  --muted-foreground: #2D3142;
-  --accent: #A7C7E7;
-  --accent-foreground: #2D3142;
-  --border: #E6CBA8;
-  --input: #E6CBA8;
-  --ring: #A7C7E7;
+  /* dark theme palette (Awwwards-y) */
+  --background: radial-gradient(1200px 600px at 10% 10%, #081228 0%, transparent 18%), linear-gradient(180deg, #071026 0%, #050617 100%);
+  --foreground: #EAF2FF;
+  --card: rgba(8,12,20,0.55);
+  --card-foreground: #EAF2FF;
+  --primary: #FFD6A5; /* warm highlight */
+  --primary-foreground: #071026;
+  --secondary: #9CD8FF;
+  --secondary-foreground: #071026;
+  --muted: rgba(255,255,255,0.04);
+  --muted-foreground: rgba(234,242,255,0.6);
+  --accent: #9CD8FF;
+  --accent-foreground: #071026;
+  --border: rgba(255,214,160,0.08);
+  --input: rgba(255,214,160,0.12);
+  --ring: rgba(156,216,255,0.12);
 }
 
 body {
@@ -279,9 +280,9 @@ h1, h2, h3 {
   max-width: 1100px;
   padding: 3rem;
   border-radius: var(--radius);
-  background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.72));
-  box-shadow: 0 10px 40px rgba(45,49,66,0.08);
-  backdrop-filter: blur(6px) saturate(120%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  box-shadow: 0 10px 40px rgba(2,6,12,0.6);
+  backdrop-filter: blur(8px) saturate(120%);
 }
 
 .block-section h3,
@@ -301,5 +302,47 @@ h1, h2, h3 {
   background: transparent;
   padding: 0;
   box-shadow: none;
+}
+
+/* Stars layer styling */
+.stars-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.stars-layer .star {
+  position: absolute;
+  background: radial-gradient(circle, #ffffff 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0.0) 60%);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(156,216,255,0.22), 0 0 28px rgba(255,214,160,0.08);
+  opacity: 0.95;
+  mix-blend-mode: screen;
+  filter: blur(.6px);
+}
+
+.stars-layer::before {
+  /* soft ambient glow behind stars */
+  content: '';
+  position: absolute;
+  inset: -20% -10% -40% -10%;
+  background: radial-gradient(40% 30% at 20% 20%, rgba(167,199,231,0.08) 0%, transparent 20%), radial-gradient(50% 40% at 85% 70%, rgba(255,214,160,0.06) 0%, transparent 35%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px) saturate(1.1);
+}
+
+.star-large {
+  /* occasional brighter/larger stars */
+  box-shadow: 0 0 18px rgba(156,216,255,0.28), 0 0 40px rgba(255,214,160,0.12);
+  filter: blur(1.2px);
+  opacity: 1;
+}
+
+/* ensure main content sits above stars */
+.min-h-screen {
+  position: relative;
+  z-index: 10;
 }
 

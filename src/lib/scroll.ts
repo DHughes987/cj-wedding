@@ -18,6 +18,19 @@ export function initParallax(root: Element | Document = document) {
     const viewportHeight = window.innerHeight
     els().forEach(el => {
       const speed = parseFloat(el.dataset.speed || '0.15')
+
+      // special behavior for star layers: scroll-driven upward movement
+      if (el.hasAttribute('data-stars')) {
+        // translate upward as user scrolls down
+        const translateY = -window.scrollY * speed
+        // allow mouse to nudge slightly
+        const mouseSpeed = parseFloat(el.dataset.mouseSpeed || '0.01')
+        const mouseOffsetX = mouseEnabled ? pointerX * 120 * mouseSpeed : 0
+        const mouseOffsetY = mouseEnabled ? pointerY * 60 * mouseSpeed : 0
+        el.style.transform = `translate3d(${mouseOffsetX}px, ${translateY + mouseOffsetY}px, 0)`
+        return
+      }
+
       const rect = el.getBoundingClientRect()
       // early exit if offscreen (minor perf improvement)
       if (rect.bottom < -100 || rect.top > viewportHeight + 100) return
