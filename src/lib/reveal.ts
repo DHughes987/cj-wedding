@@ -1,6 +1,7 @@
 // Simple reveal-on-scroll helper using IntersectionObserver.
 // Watches elements with [data-reveal] and adds the "revealed" class
 // when they enter the viewport. Optionally supports data-delay in ms.
+try { console.log && console.log('[reveal] module loaded') } catch(e){}
 export function initRevealOnScroll(root: Element | Document = document) {
   if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return
 
@@ -17,6 +18,8 @@ export function initRevealOnScroll(root: Element | Document = document) {
           el.classList.add('revealed')
         }
         io.unobserve(el)
+  // debug
+  try { console.log && console.log('[reveal] revealed', el, 'delay=', delay) } catch(e){}
       }
     })
   }, { threshold: 0.12 })
@@ -30,7 +33,10 @@ export function initRevealOnScroll(root: Element | Document = document) {
 
   // observe existing elements
   const existing = Array.from(doc.querySelectorAll('[data-reveal]')) as HTMLElement[]
-  existing.forEach(observeEl)
+  if (existing.length) {
+    existing.forEach(observeEl)
+  }
+  try { console.log && console.log('[reveal] init, existing count=', existing.length) } catch(e){}
 
   // watch for future elements being added (single MutationObserver)
   if ('MutationObserver' in window) {
