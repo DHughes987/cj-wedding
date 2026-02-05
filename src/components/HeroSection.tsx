@@ -27,7 +27,7 @@ const HeroSection: React.FC = () => (
         Invite you to celebrate their wedding
       </h2>
       <p className="text-lg md:text-xl text-center text-foreground mb-6">
-        September 12, 2026 &mdash; Willow Creek Estate
+        December 5th, 2026 &mdash; Willow Creek Estate
       </p>
       <div className="divider w-1/2 mx-auto mb-6" />
 
