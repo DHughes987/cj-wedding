@@ -1,0 +1,16 @@
+node_modules
+dist
+build
+.vscode
+.vite
+.env
+.env.*
+coverage
+public/*.svg
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+.DS_Store
+
+# Ignore generated assets
+src/assets/**

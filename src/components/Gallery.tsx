@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 
 const images = [
@@ -7,17 +7,29 @@ const images = [
   "https://placehold.co/600x400?text=Caroline+%26+Johnathon+3",
 ];
 
-const Gallery: React.FC = () => {
+type GalleryProps = {
+  auto?: boolean;
+  interval?: number;
+}
+
+const Gallery: React.FC<GalleryProps> = ({ auto = false, interval = 3500 }) => {
   const [current, setCurrent] = useState(0);
   const prev = () => setCurrent((current - 1 + images.length) % images.length);
   const next = () => setCurrent((current + 1) % images.length);
 
+  // autoplay
+  useEffect(() => {
+    if (!auto) return
+    const id = setInterval(() => setCurrent(c => (c + 1) % images.length), interval)
+    return () => clearInterval(id)
+  }, [auto, interval])
+
   return (
-    <section data-reveal="right" data-delay="120" className="block-section">
-      <div className="block-content flex flex-col items-center">
+    <section data-reveal="right" data-delay="120" className="block-section w-full">
+      <div className="block-content flex flex-col items-center w-full">
         <h3 className="text-2xl md:text-3xl font-heading mb-4">Gallery</h3>
-        <Card className="w-full max-w-4xl flex flex-col items-center p-0 overflow-hidden shadow-soft card">
-          <div className="relative w-full h-96 flex items-center justify-center">
+        <Card className="w-full flex-1 flex flex-col items-center p-0 overflow-hidden shadow-soft card">
+          <div className="relative w-full flex-1 flex items-center justify-center">
           <img
             src={images[current]}
             alt={`Wedding ${current + 1}`}
